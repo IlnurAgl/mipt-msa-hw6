@@ -25,7 +25,7 @@ def get_db():
 def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
-        detail="Could not validate credentials",
+        detail=None,
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
@@ -37,7 +37,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     except jwt.ExpiredSignatureError:
         raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Expired cred",
+        detail=None,
         headers={"WWW-Authenticate": "Bearer"},
     )
     except JWTError:
